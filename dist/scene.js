@@ -69,14 +69,97 @@ function sideBuilding(x){
   return g;
 }
 
-// One complete square specimen slab, with stratified cut edges.
-box(root,12.9,.67,12.9,0,-.36,0,basalt);
-box(root,12.82,.1,12.82,0,.025,0,steel);
-box(root,12.67,.13,12.67,0,.14,0,concrete);
-for(const s of [-1,1]){
-  box(root,12.85,.025,.026,0,-.22,s*6.44,green,false);
-  box(root,.026,.025,12.85,s*6.44,-.22,0,green,false);
+// A waterside reading pavilion: a light glazed room between heavy horizontal eaves.
+function watersidePavilion(){
+  const g=new THREE.Group();g.position.set(-7.4,0,1.45);root.add(g);
+  box(g,2.92,.32,3.48,0,.42,0,concreteDark);
+  box(g,2.81,.09,3.36,0,.62,0,pale);
+  for(const x of [-1.17,1.17])for(const z of [-1.42,1.42]){
+    box(g,.13,1.39,.13,x,1.4,z,concrete);
+    box(g,.24,.11,.24,x,2.12,z,steel);
+  }
+  box(g,2.47,1.33,2.88,0,1.36,0,jade);
+  glassFacade(g,2.38,1.2,.06,0,1.38,1.47);
+  for(let x=-1.05;x<1.15;x+=.34)box(g,.035,1.14,.09,x,1.38,-1.48,steel);
+  canopy(g,3.18,3.75,0,2.22,0);
+  box(g,1.75,.2,1.58,-.25,2.6,-.34,concrete);
+  glassFacade(g,1.52,.43,.05,-.25,2.71,.47);
+  canopy(g,2.12,2.16,-.25,3.03,-.33);
+  rail(g,-1.3,1.3,1.71,.94);
+  box(g,1.66,.14,.42,0,.35,1.98,pale);
+  box(g,.14,.08,2.91,1.43,.77,0,green,false);
 }
+
+// An asymmetric workshop and market, with staggered modern shop awnings.
+function marketHouse(){
+  const g=new THREE.Group();g.position.set(7.35,0,1.52);root.add(g);
+  box(g,2.92,.36,3.68,0,.43,0,concreteDark);
+  box(g,2.8,.08,3.55,0,.65,0,pale);
+  box(g,2.57,1.3,3.14,0,1.34,-.12,concrete);
+  glassFacade(g,2.41,1.16,.07,0,1.35,1.49);
+  for(const x of [-1.2,1.2])box(g,.14,1.36,.17,x,1.38,1.47,steel);
+  box(g,2.62,.25,1.14,0,.78,1.06,basalt);
+  canopy(g,3.13,3.58,0,2.2,-.04);
+  // The upper glass room sits slightly off-centre under a shorter roof.
+  box(g,1.99,.93,2.06,.31,2.7,-.58,jade);
+  glassFacade(g,1.8,.79,.06,.31,2.71,.49);
+  canopy(g,2.46,2.65,.31,3.3,-.58);
+  for(let x=-1.2;x<1.3;x+=.3)box(g,.04,.44,.035,x,2.48,1.44,edge);
+  rail(g,-1.27,1.27,1.65,2.42);
+  box(g,1.17,.33,.06,-.49,1.54,1.58,charcoal);
+  for(let i=0;i<3;i++)box(g,.12,.12,.025,-.86+i*.31,1.55,1.62,signal,false);
+  for(const x of [-1.05,.9]){
+    box(g,.47,.08,.46,x,.71,2.25,concreteDark);
+    sphere(g,.24,x,.89,2.25,leaf[x<0?0:2],1.1,.7,1);
+  }
+}
+
+// A compact archive tower: the same concrete, dark cap and jade glazing in a vertical rhythm.
+function archiveTower(){
+  const g=new THREE.Group();g.position.set(0,0,-7.1);root.add(g);
+  box(g,3.79,.47,2.85,0,.47,0,concreteDark);
+  box(g,3.67,.1,2.74,0,.75,0,pale);
+  for(const x of [-1.52,1.52])for(const z of [-1.06,1.06])box(g,.19,2.91,.2,x,2.22,z,concrete);
+  box(g,3.28,2.52,2.3,0,2.13,0,jade);
+  glassFacade(g,3.13,2.36,.06,0,2.15,1.17);
+  for(let x=-1.42;x<=1.43;x+=.27)box(g,.065,2.56,.15,x,2.13,1.25,steel);
+  for(let y of [1.47,2.3,3.13])box(g,3.24,.044,.07,0,y,1.27,edge);
+  canopy(g,4.07,3.16,0,3.69,0);
+  box(g,2.66,.48,1.42,0,4.03,-.18,concrete);
+  glassFacade(g,2.44,.34,.055,0,4.07,.56);
+  canopy(g,3.11,2.08,0,4.42,-.18);
+  box(g,.68,.58,.06,0,1.08,1.22,basalt);
+  for(let i=0;i<4;i++)box(g,.08,.08,.025,-.23+i*.15,1.12,1.26,light,false);
+}
+
+// One complete square specimen slab, with stratified cut edges.
+box(root,18.4,.67,18.4,0,-.36,0,basalt);
+box(root,18.32,.1,18.32,0,.025,0,steel);
+box(root,18.17,.13,18.17,0,.14,0,concrete);
+for(const s of [-1,1]){
+  box(root,18.35,.025,.026,0,-.22,s*9.19,green,false);
+  box(root,.026,.025,18.35,s*9.19,-.22,0,green,false);
+}
+// Quiet circulation bands frame the older gate precinct and connect the three new buildings.
+for(const s of [-1,1]){
+  box(root,2.02,.048,11.2,s*7.1,.225,.82,pale);
+  for(let z=-4.5;z<6.1;z+=.71)box(root,1.98,.008,.014,s*7.1,.254,z,concreteDark,false);
+  box(root,2.22,.055,2.3,s*7.05,.23,-6.6,pale);
+  box(root,2.3,.12,.19,s*6.06,.35,-5.9,concrete);
+}
+box(root,3.62,.06,1.04,0,.235,-5.16,pale);
+box(root,3.59,.05,1.05,0,.235,5.96,pale);
+for(let x=-1.65;x<1.8;x+=.55)box(root,.014,.008,1.03,x,.269,5.96,concreteDark,false);
+box(root,7.72,.045,3.16,0,.235,7.24,pale);
+for(let x=-3.65;x<3.8;x+=.68)box(root,.012,.008,3.15,x,.263,7.24,concreteDark,false);
+for(let z=5.7;z<8.85;z+=.62)box(root,7.7,.008,.012,0,.263,z,concreteDark,false);
+for(const s of [-1,1]){
+  box(root,2.2,.22,2.62,s*6.92,.33,6.86,concreteDark);
+  box(root,2.03,.055,2.44,s*6.92,.47,6.86,jade);
+  for(let i=0;i<9;i++)sphere(root,.12+(i%3)*.03,s*(6.1+(i*1.37%1.62)),.54,5.84+(i*.43%2),leaf[i%4],1.18,.53,1);
+  box(root,.12,.16,3.1,s*4.02,.3,7.2,concrete);
+}
+watersidePavilion();marketHouse();archiveTower();
 // Rectilinear forecourt, small reflecting pools and gridded paving.
 box(root,8.4,.055,3.12,0,.24,3.35,pale);
 for(let x=-3.95;x<4;x+=.74)box(root,.012,.008,3.1,x,.276,3.35,concreteDark,false);
@@ -200,7 +283,7 @@ const fill=new THREE.DirectionalLight('#80c4bb',1.6);fill.position.set(7,7,-7);s
 let azimuth=.21,elevation=.51,zoom=1;
 const target=new THREE.Vector3(0,1.65,0);
 function updateCamera(){const d=24;camera.position.set(Math.sin(azimuth)*Math.cos(elevation)*d,Math.sin(elevation)*d,Math.cos(azimuth)*Math.cos(elevation)*d);camera.lookAt(target);camera.updateProjectionMatrix();}
-function resize(){const w=innerWidth,h=innerHeight,aspect=w/h;const size=Math.max(8.05,7.55/aspect)/zoom;camera.left=-size*aspect;camera.right=size*aspect;camera.top=size;camera.bottom=-size;renderer.setSize(w,h);updateCamera();}
+function resize(){const w=innerWidth,h=innerHeight,aspect=w/h;const size=Math.max(9.3,10.9/aspect)/zoom;camera.left=-size*aspect;camera.right=size*aspect;camera.top=size;camera.bottom=-size;renderer.setSize(w,h);updateCamera();}
 window.addEventListener('resize',resize);resize();
 const pointers=new Map();let lastPinch=0;
 renderer.domElement.addEventListener('pointerdown',e=>{renderer.domElement.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});});
